@@ -34,11 +34,24 @@ python check_blas.py
 rm check_blas.py
 
 # install python graphing tools
-pip install --upgrade seaborn ggplot altair plotly
+pip install ggplot
+conda install -y seaborn
+conda install altair --channel conda-forge
+
 # install python utils
-pip install --upgrade urllib2 urllib3 tqdm
+pip install --upgrade urllib3 tqdm
+pip install --upgrade progressbar2
+
+# image processing
+pip install --upgrade imageio
+
 # install ml tools 
 pip install --upgrade xgboost h2o 
 
-
-
+# tensorflow install cpu only
+conda create -n tensorflow -y python=3.5
+source activate tensorflow
+conda install -y -c conda-forge tensorflow
+# test tensorflow
+python -c "import numpy as np; import tensorflow as tf; x = tf.constant(np.random.random((5000, 5000))); sess = tf.Session(); print(sess.run(tf.matmul(x, x)));"
+source deactivate
