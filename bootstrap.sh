@@ -9,3 +9,4 @@ git config --global credential.helper store
 # clone the config repo
 git clone https://github.com/linuxConfig.git
 
+echo 'Run GUI and Shell config scripts now...'
