@@ -29,3 +29,9 @@ sudo apt-get install docker.io
 sudo groupadd docker
 sudo gpasswd -a $USER docker
 newgrp docker
+
+# shell completion framework
+git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+~/.bash_it/install.sh --silent
+source ~/.bashrc
+bash-it enable alias git docker tmux vim emacs apt curl clipboard
