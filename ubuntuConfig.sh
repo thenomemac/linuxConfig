@@ -22,3 +22,10 @@ conda install -y numpy pandas scipy matplotlib mkl ipython jupyter requests flas
 
 # linting dev tools
 pip install jedi rope flake8 importmagic autopep8 yapf
+
+# docker install
+sudo apt-get install docker.io
+# make docker non root
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+newgrp docker
