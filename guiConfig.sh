@@ -1,17 +1,25 @@
+#!/bin/bash -ex
+
 # ubuntu 16.04 config for gui
 sudo apt update
-sudo apt upgrade -y
 
-# download and install chrome
-sudo apt install -y libxss1 libappindicator1 libindicator7
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome*.deb
-rm google-chrome*.deb
-sudo apt update
-# to run: google-chrome-stable
+# browser install
+sudo apt-get install -y chromium-browser
 
-# download and install sublimetext
-wget $(curl -s https://www.sublimetext.com/3 | grep -o "https://download.sublimetext.com/sublime-text.*amd64.deb")
-sudo dpkg -i sublime-text*amd64.deb
-rm sublime-text*.deb
-sudo apt update
+# gnome config
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true  
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+
+# gnome dark theme
+sudo apt-get install -y gnome-tweak-tool
+echo -e "[Settings]\ngtk-application-prefer-dark-theme=1" >> ~/.config/gtk-3.0/settings.ini
+
+# disable shell beep
+echo "set bell-style none" >> ~/.inputrc
+
+# vscode install
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt-get update
+sudo apt-get install -y --allow-unauthenticated code
