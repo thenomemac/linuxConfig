@@ -1,8 +1,7 @@
 #!/bin/bash -ex
 
 # ubuntu 16.04 config
-sudo apt update
-# sudo apt upgrade -y
+sudo apt update -y
 
 # install some favorite utils
 sudo apt-get install -y git curl htop tmux emacs
@@ -35,3 +34,14 @@ git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh --silent
 source ~/.bashrc
 bash-it enable alias git docker tmux vim emacs apt curl clipboard
+
+# google cloud config
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install -y google-cloud-sdk kubectl
+
+# personal bin
+mkdir -p ~/bin
+echo -e '\n# personal bin\nexport PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
