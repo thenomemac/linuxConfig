@@ -7,11 +7,15 @@ sudo apt update
 sudo apt-get install -y chromium-browser
 
 # gnome config
-gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true  
-gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+/usr/bin/gsettings set org.gnome.desktop.interface clock-show-date
+/usr/bin/gsettings set org.gnome.desktop.interface clock-format 12h
+/usr/bin/gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true  
+/usr/bin/gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+/usr/bin/gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 
 # gnome dark theme
 sudo apt-get install -y gnome-tweak-tool
+mkdir -p ~/.config/gtk-3.0
 echo -e "[Settings]\ngtk-application-prefer-dark-theme=1" >> ~/.config/gtk-3.0/settings.ini
 
 # disable shell beep
