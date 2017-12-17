@@ -19,6 +19,7 @@ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3*.sh -b
 rm Miniconda3*.sh
 echo -e '\n# Miniconda3\nexport PATH="$HOME/miniconda3/bin:$PATH"' >> ~/.bashrc
+echo -e 'export LD_LIBRARY_PATH="$HOME/miniconda3/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
 source ~/.bashrc
 
 # must have python utils
