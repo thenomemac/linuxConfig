@@ -33,14 +33,26 @@ mkdir -p ~/.config
 echo -e '[flake8]\nmax-line-length = 120' >> ~/.config/flake8
 
 # docker install
-sudo apt-get install docker.io
+sudo apt-get remove docker docker-engine docker.io
+sudo apt-get update -y
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-commo
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+sudo apt-get update -y
+sudo apt-get install -y docker-ce
+
 # make docker non root
 sudo groupadd docker
 sudo gpasswd -a $USER docker
 newgrp docker
-
-# docker compose
-sudo apt-get install docker-compose
 
 # shell completion framework
 git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
