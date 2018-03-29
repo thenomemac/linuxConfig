@@ -70,3 +70,16 @@ export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install -y google-cloud-sdk kubectl
+
+# golang init
+echo '' >> ~/.bashrc
+echo '# go config' >> ~/.bashrc
+echo 'export GOROOT="$HOME/bin/go"' >> ~/.bashrc
+echo 'export GOPATH="$HOME/gocode"' >> ~/.bashrc
+echo 'export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"' >> ~/.bashrc
+mkdir -p ~/bin
+mkdir -p gocode
+# golang install
+curl -O https://dl.google.com/go/go1.10.linux-amd64.tar.gz
+tar -xzvf go*.linux-amd64.tar.gz
+mv go bin/go
