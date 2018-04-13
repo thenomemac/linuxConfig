@@ -23,7 +23,8 @@ echo -e 'export LD_LIBRARY_PATH="$HOME/miniconda3/lib:$LD_LIBRARY_PATH"' >> ~/.b
 source ~/.bashrc
 
 # must have python utils
-conda install -y numpy pandas scipy matplotlib mkl ipython jupyter requests flask bokeh tqdm
+conda install -y numpy pandas scipy matplotlib mkl ipython jupyter requests flask bokeh tqdm pytest
+pip install jupyter-emacskeys
 
 # linting dev tools
 pip install jedi rope flake8 importmagic autopep8 yapf
