@@ -14,6 +14,9 @@ emacs --script ~/.emacs.d/init.el
 git config --global core.excludesfile ~/.gitignore_global
 cp ./.gitignore_global ~/.gitignore_global
 
+# tmux
+echo -e 'set -g default-terminal "screen-256color\nset -g status-fg magenta' >> ~/.tmux.conf
+
 # get the latest conda build and install
 curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3*.sh -b
@@ -23,11 +26,9 @@ echo -e 'export LD_LIBRARY_PATH="$HOME/miniconda3/lib:$LD_LIBRARY_PATH"' >> ~/.b
 source ~/.bashrc
 
 # must have python utils
-conda install -y numpy pandas scipy matplotlib mkl ipython jupyter requests flask bokeh tqdm pytest
+conda install -y python pip numpy pandas scipy matplotlib statsmodels mkl ipython jupyterlab requests flask bokeh tqdm pytest pyarrow line_profiler memory_profiler
 pip install jupyter-emacskeys
-
-# linting dev tools
-pip install jedi rope flake8 importmagic autopep8 yapf
+pip install jedi rope flake8 importmagic autopep8 yapf black mypy isort
 
 # flake config
 mkdir -p ~/.config
@@ -36,11 +37,11 @@ echo -e '[flake8]\nmax-line-length = 120' >> ~/.config/flake8
 # docker install
 sudo apt-get remove -y docker docker-engine docker.io &&
 sudo apt-get update -y &&
-# sudo apt-get install -y \
-#     apt-transport-https \
-#     ca-certificates \
-#     curl \
-#     software-properties-commo &&
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common &&
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &&
 sudo apt-key fingerprint 0EBFCD88 &&
 sudo add-apt-repository \
@@ -48,7 +49,8 @@ sudo add-apt-repository \
     $(lsb_release -cs) \
     stable" &&
 sudo apt-get update -y &&
-sudo apt-get install -y docker-ce
+sudo apt-get install -y docker-ce &&
+docker --version
 # docker-compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose &&
 sudo chmod +x /usr/local/bin/docker-compose &&
@@ -86,6 +88,6 @@ echo 'export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"' >> ~/.bashrc
 mkdir -p ~/bin
 mkdir -p gocode
 # golang install
-curl -O https://dl.google.com/go/go1.10.linux-amd64.tar.gz
+curl -O https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
 tar -xzvf go*.linux-amd64.tar.gz
 mv go bin/go
