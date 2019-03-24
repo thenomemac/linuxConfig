@@ -15,7 +15,10 @@ git config --global core.excludesfile ~/.gitignore_global
 cp ./.gitignore_global ~/.gitignore_global
 
 # tmux
-echo -e 'set -g default-terminal "screen-256color\nset -g status-fg magenta' >> ~/.tmux.conf
+echo -e 'set -g default-terminal "screen-256color"\nset -g status-bg magenta' >> ~/.tmux.conf
+
+# shell beep
+echo "set bell-style none" >> ~/.inputrc
 
 # get the latest conda build and install
 curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -79,15 +82,18 @@ echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee 
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install -y google-cloud-sdk kubectl
 
+# golang install
+curl -O https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
+tar -xzvf go*.linux-amd64.tar.gz
+mkdir -p ~/bin
+mv go ~/bin/go
 # golang init
 echo '' >> ~/.bashrc
 echo '# go config' >> ~/.bashrc
 echo 'export GOROOT="$HOME/bin/go"' >> ~/.bashrc
-echo 'export GOPATH="$HOME/gocode"' >> ~/.bashrc
-echo 'export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"' >> ~/.bashrc
-mkdir -p ~/bin
-mkdir -p gocode
-# golang install
-curl -O https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
-tar -xzvf go*.linux-amd64.tar.gz
-mv go bin/go
+echo 'export PATH="$PATH:$GOROOT/bin"' >> ~/.bashrc
+echo 'export GOPATH="$HOME/go"' >> ~/.bashrc
+# echo 'export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"' >> ~/.bashrc
+echo 'export PATH="$PATH:$GOPATH/bin"' >> ~/.bashrc
+mkdir -p ~/go
+
